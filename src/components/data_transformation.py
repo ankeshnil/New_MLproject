@@ -98,8 +98,8 @@ class DataTransformation:
             # this function saves the pickle file. inside the folder path you defined in preprocessor_ob_file_path
             save_object(   # we write the function in utils.py
                file_path = self.data_transformation_config.preprocessor_ob_file_path,
-                obj = preprocession_obj
-            )
+                obj = preprocession_obj  # → what to save
+            ) 
             
             logging.info("Save preprocessing object")
             
