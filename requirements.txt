@@ -1,7 +1,10 @@
 pandas
 numpy
 seaborn
--e . 
+scikit-learn
+catboost
+xgboost
+# -e . 
 ## it hit the setup.py to run
 ## It means "install this project" , But setup.py is already installing the project  
 ## -e . means install this project again.    for this we write the code to ignore it inside setup.py
