@@ -23,6 +23,7 @@ from src.logger import logging
 from src.utils import save_object
 from dataclasses import dataclass
 from src.utils import evaluate_model
+from sklearn.model_selection import GridSearchCV
 
 @dataclass
 class ModelTraningConfig:
@@ -50,8 +51,46 @@ class ModelTrainer:
             "XGBRegressor": XGBRegressor(),
             "AdaBoost Regressor": AdaBoostRegressor()
         }
+            params = {
+
+    "Decision Tree": {
+        "max_depth": [None, 5, 10],
+        "min_samples_split": [2, 5, 10]
+    },
+
+    "K-Neighbors Regressor": {
+        "n_neighbors": [3, 5, 7],
+        "weights": ["uniform", "distance"]
+    },
+
+    "Random Forest Regressor": {
+        "n_estimators": [100, 200],
+        "max_depth": [None, 5, 10]
+    },
+
+    "Linear Regression": {},
+
+    "XGBRegressor": {
+        "n_estimators": [100, 200],
+        "learning_rate": [0.05, 0.1],
+        "max_depth": [3, 4]
+    },
+
+    "AdaBoost Regressor": {
+        "n_estimators": [50, 100],
+        "learning_rate": [0.05, 0.1]
+    },
+
+    "Ridge": {
+        "alpha": [0.01, 0.1, 1, 10]
+    },
+
+    "Lasso": {
+        "alpha": [0.01, 0.1, 1]
+    }
+}
             model_report:dict=evaluate_model(X_train=X_train, y_train=y_train,X_test=X_test, y_test= y_test,
-                                             models= models) # this fun. create in utils.py
+                                             models= models, param = params) # this fun. create in utils.py
             
             logging.info("Model evaluation report store")
             
@@ -82,7 +121,7 @@ class ModelTrainer:
                       
         except Exception as e:
             print("Original Error:", e)
-            raise e
+            raise CustomException(e,sys)
 
 
 
